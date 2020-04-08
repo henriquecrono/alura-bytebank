@@ -3,17 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:bytebank/models/transfer.dart';
 import 'package:bytebank/screens/transferencia/form.dart';
 
-class TransfersList extends StatelessWidget {
+class TransfersList extends StatefulWidget {
   final List<Transfer> _transfers = List();
+
+  @override
+  _TransfersListState createState() => _TransfersListState();
+}
+
+class _TransfersListState extends State<TransfersList> {
+  static const _appBarTitle = 'Transferências';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Transferências')),
+      appBar: AppBar(title: const Text(_appBarTitle)),
       body: ListView.builder(
-        itemCount: _transfers.length,
+        itemCount: widget._transfers.length,
         itemBuilder: (context, index) {
-          final transfer = _transfers[index];
+          final transfer = widget._transfers[index];
 
           return TransferItem(transfer);
         },
@@ -25,13 +32,17 @@ class TransfersList extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => TransferForm()));
 
           future.then((receivedTransfer) {
-            debugPrint('Transferência recebida');
-            debugPrint('$receivedTransfer');
-            _transfers.add(receivedTransfer);
+            if (receivedTransfer != null) update(receivedTransfer);
           });
         },
       ),
     );
+  }
+
+  void update(Transfer receivedTransfer) {
+    return setState(() {
+      widget._transfers.add(receivedTransfer);
+    });
   }
 }
 

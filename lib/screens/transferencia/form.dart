@@ -3,36 +3,54 @@ import 'package:flutter/material.dart';
 import 'package:bytebank/components/editor.dart';
 import 'package:bytebank/models/transfer.dart';
 
-class TransferForm extends StatelessWidget {
+class TransferForm extends StatefulWidget {
+  @override
+  _TransferFormState createState() => _TransferFormState();
+}
+
+class _TransferFormState extends State<TransferForm> {
   final TextEditingController _accountNumberFieldController =
       TextEditingController();
+
   final TextEditingController _amountFieldController = TextEditingController();
 
-  final globalKey = GlobalKey<ScaffoldState>();
+  // final globalKey = GlobalKey<ScaffoldState>();
+
+  static const _appBarTitle = 'Criando Transferência';
+
+  static const _labelAccountNumber = 'Número da conta';
+  static const _hintAccountNumber = '0000';
+
+  static const _labelAmount = 'Valor';
+  static const _hintAmount = '0.00';
+
+  static const _txtConfirmButton = 'Confirmar';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: globalKey,
+      // key: globalKey,
       appBar: AppBar(
-        title: Text('Criando Transferência'),
+        title: Text(_appBarTitle),
       ),
-      body: Column(
-        children: <Widget>[
-          Editor(
-              controller: _accountNumberFieldController,
-              label: "Número da conta",
-              hint: "0000"),
-          Editor(
-              controller: _amountFieldController,
-              label: "Valor",
-              hint: "0.00",
-              icon: Icons.monetization_on),
-          RaisedButton(
-            child: Text('Confirmar'),
-            onPressed: () => _createTransfer(context),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Editor(
+                controller: _accountNumberFieldController,
+                label: _labelAccountNumber,
+                hint: _hintAccountNumber),
+            Editor(
+                controller: _amountFieldController,
+                label: _labelAmount,
+                hint: _hintAmount,
+                icon: Icons.monetization_on),
+            RaisedButton(
+              child: Text(_txtConfirmButton),
+              onPressed: () => _createTransfer(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -43,11 +61,11 @@ class TransferForm extends StatelessWidget {
 
     if (accountNumber != null && amount != null) {
       final createdTransfer = Transfer(amount, accountNumber);
-      final snackBar = SnackBar(
-        content: Text('$createdTransfer'),
-        duration: Duration(milliseconds: 1000),
-      );
-      globalKey.currentState.showSnackBar(snackBar);
+      // final snackBar = SnackBar(
+      //   content: Text('$createdTransfer'),
+      //   duration: Duration(milliseconds: 1000),
+      // );
+      // globalKey.currentState.showSnackBar(snackBar);
 
       Navigator.pop(context, createdTransfer);
     }
