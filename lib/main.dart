@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bytebank/screens/dashboard/dashboard.dart';
+import 'package:bytebank/screens/contacts/list.dart';
 
 void main() => runApp(ByteBank());
 
@@ -23,6 +24,7 @@ class ByteBank extends StatelessWidget {
         ),
       ),
       home: Dashboard(),
+      // home: ContactsList(),
     );
   }
 }
