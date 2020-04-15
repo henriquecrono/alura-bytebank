@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:bytebank/components/card_menu.dart';
 
+import 'package:bytebank/screens/transfer/list.dart';
+import 'package:bytebank/screens/contacts/list.dart';
+
 class Dashboard extends StatelessWidget {
   static const _appBarTitle = 'Dashboard';
 
@@ -33,10 +36,12 @@ class Dashboard extends StatelessWidget {
                 CardMenu(
                   cardIcon: _transferListCardIcon,
                   cardTitle: _transferListCardTitle,
+                  cardPageRoute: TransfersList(),
                 ),
                 CardMenu(
                   cardIcon: _contactsCardIcon,
                   cardTitle: _contactsCardTitle,
+                  cardPageRoute: ContactsList(),
                 ),
               ],
             ),
